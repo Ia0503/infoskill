@@ -1,0 +1,18 @@
+# infoskill:template - adapt tool, arguments and success wording to the project.
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $false
+$projectRoot = Split-Path -Parent $PSScriptRoot
+try {
+    $tool = (Get-Command '{{TOOL}}' -CommandType Application -ErrorAction Stop).Source
+    Push-Location -LiteralPath $projectRoot
+    try {
+        & $tool {{ARGUMENTS}}
+        $taskExit = $LASTEXITCODE
+        if ($taskExit -ne 0) { throw "Command failed with exit code $taskExit." }
+    }
+    finally { Pop-Location }
+}
+catch {
+    Write-Error $_ -ErrorAction Continue
+    exit 1
+}

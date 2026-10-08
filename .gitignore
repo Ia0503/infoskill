@@ -1,0 +1,12 @@
+/info/
+/test/results/
+/dist/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.DS_Store
+Thumbs.db

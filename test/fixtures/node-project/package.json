@@ -1,0 +1,6 @@
+{
+  "name": "sample-app",
+  "private": true,
+  "scripts": {"dev": "vite", "build": "vite build"},
+  "devDependencies": {"vite": "*"}
+}

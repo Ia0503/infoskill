@@ -1,0 +1,14 @@
+@echo off
+setlocal
+rem infoskill:template - choose powershell.exe or pwsh.exe after checking the environment.
+where {{POWERSHELL}} >nul 2>&1
+if errorlevel 1 (
+  echo PowerShell is unavailable. See the companion TXT file.
+  if not defined INFOSKILL_NO_PAUSE pause
+  exit /b 1
+)
+{{POWERSHELL}} -NoProfile -File "%~dp0{{SCRIPT_NAME}}"
+set "taskExit=%errorlevel%"
+if not "%taskExit%"=="0" echo Command failed with exit code %taskExit%.
+if not defined INFOSKILL_NO_PAUSE pause
+exit /b %taskExit%

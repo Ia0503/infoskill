@@ -1,0 +1,17 @@
+@echo off
+setlocal
+rem infoskill:template - replace tool and command for the actual project.
+pushd "%~dp0.." || exit /b 1
+where {{TOOL}} >nul 2>&1
+if errorlevel 1 (
+  echo Required tool is unavailable. See the companion TXT file.
+  popd
+  if not defined INFOSKILL_NO_PAUSE pause
+  exit /b 1
+)
+call {{COMMAND}}
+set "taskExit=%errorlevel%"
+popd
+if not "%taskExit%"=="0" echo Command failed with exit code %taskExit%.
+if not defined INFOSKILL_NO_PAUSE pause
+exit /b %taskExit%
